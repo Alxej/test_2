@@ -334,17 +334,17 @@ class TestWordCheckPositive(unittest.TestCase):
                                      self.true_raw_url,
                                      "words.txt",
                                      'symbols.txt')
-        words = checker.get_array_of_words_with_extra_symbol('wosrd',
+        words = checker.get_array_of_words_with_extra_symbol('wod',
                                                              ['word', 'sdas'],
-                                                             ['k', 's'])
+                                                             ['r', 's'])
         self.assertEqual(len(words), 1)
         self.assertEqual(words[0], 'word')
 
     def test_get_array_of_words_with_extra_symbol_true_parameters(self):
         checker = self.checker
-        words = checker.get_array_of_words_with_extra_symbol('wosrd',
+        words = checker.get_array_of_words_with_extra_symbol('wod',
                                                              ['word', 'sdas'],
-                                                             ['k', 's'])
+                                                             ['r', 's'])
         self.assertEqual(len(words), 1)
         self.assertEqual(words[0], 'word')
 
@@ -414,17 +414,14 @@ class TestWordCheckPositive(unittest.TestCase):
                                      self.true_raw_url,
                                      "words.txt",
                                      'symbols.txt')
-        words = checker.get_array_of_words_with_deleted_symbol('wordd',
+        words = checker.get_array_of_words_with_deleted_symbol('wordk',
                                                                 ['word', 'sdas']) # noqa E501
         self.assertEqual(len(words), 1)
         self.assertEqual(words[0], 'word')
 
     def test_get_array_of_words_with_deleted_symbol_true_parameters(self):
-        checker = SimilarWordsFinder(self.true_url,
-                                 self.true_raw_url,
-                                 "words.txt",
-                                 'symbols.txt')
-        words = checker.get_array_of_words_with_deleted_symbol('wordd',
+        checker = self.checker
+        words = checker.get_array_of_words_with_deleted_symbol('wordk',
                                                                 ['word', 'sdas']) # noqa E501
         self.assertEqual(len(words), 1)
         self.assertEqual(words[0], 'word')

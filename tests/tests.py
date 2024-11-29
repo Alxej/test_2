@@ -532,7 +532,7 @@ class TestWordCheckPositive(unittest.TestCase):
 
 class TestWordCheckNegative(unittest.TestCase):
     true_url = 'https://github.com/Alxej/testing_repo/tree/main' # noqa E501
-    true_raw_url = 'https://raw.githubusercontent.com/Alxej/testing_repo/refs/heads/main/README.md' # noqa E501
+    true_raw_url = 'https://raw.githubusercontent.com/Alxej/testing_repo/refs/heads/main' # noqa E501
     checker = SimilarWordsFinder(true_url,
                                  true_raw_url,
                                  "words.txt",

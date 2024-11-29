@@ -420,7 +420,10 @@ class TestWordCheckPositive(unittest.TestCase):
         self.assertEqual(words[0], 'word')
 
     def test_get_array_of_words_with_deleted_symbol_true_parameters(self):
-        checker = self.checker
+        checker = SimilarWordsFinder(self.true_url,
+                                 self.true_raw_url,
+                                 "words.txt",
+                                 'symbols.txt')
         words = checker.get_array_of_words_with_deleted_symbol('wrd',
                                                                 ['word', 'sdas']) # noqa E501
         self.assertEqual(len(words), 1)

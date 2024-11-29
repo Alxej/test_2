@@ -516,7 +516,7 @@ class TestWordCheckPositive(unittest.TestCase):
 
     def test_get_similar_words_word_in_list(self):
         checker = self.checker
-        words = checker.get_similar_words('life')
+        words = checker.get_similar_words('life\n')
         self.assertIsNone(words)
 
     def test_get_similar_words_empty_words_list(self):

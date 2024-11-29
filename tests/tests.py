@@ -1,3 +1,5 @@
+import word_check
+import words_parser
 from word_check import SimilarWordsFinder
 from words_parser import WordsParser
 import unittest

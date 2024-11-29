@@ -1,5 +1,3 @@
-import word_check
-import words_parser
 from word_check import SimilarWordsFinder
 from words_parser import WordsParser
 import unittest
@@ -550,27 +548,27 @@ class TestWordCheckNegative(unittest.TestCase):
             checker.get_list_of_words("sadsadsa")
 
     def test_get_array_of_words_with_extra_symbol_wrong_word_type(self):
-        with self.assertRaises(ValueError):
+        with self.assertRaises(TypeError):
             checker = self.checker
             checker.get_array_of_words_with_extra_symbol(10, [], [])
 
     def test_get_array_of_words_with_replaced_symbol_wrong_word_type(self):
-        with self.assertRaises(ValueError):
+        with self.assertRaises(TypeError):
             checker = self.checker
             checker.get_array_of_words_with_replaced_symbol(10, [], [])
 
     def test_get_array_of_words_with_deleted_symbol_wrong_word_type(self):
-        with self.assertRaises(ValueError):
+        with self.assertRaises(TypeError):
             checker = self.checker
             checker.get_array_of_words_with_deleted_symbol(10, [])
 
     def test_get_array_of_words_with_swapped_symbols_wrong_word_type(self):
-        with self.assertRaises(ValueError):
+        with self.assertRaises(TypeError):
             checker = self.checker
             checker.get_array_of_words_with_swapped_symbols(10, [])
 
     def test_get_similar_words_wrong_word_type(self):
-        with self.assertRaises(ValueError):
+        with self.assertRaises(TypeError):
             checker = self.checker
             checker.get_similar_words(10)
 

@@ -375,18 +375,18 @@ class TestWordCheckPositive(unittest.TestCase):
                                      "words.txt",
                                      'symbols.txt')
         words = checker.get_array_of_words_with_replaced_symbol('word',
-                                                                ['wdor', 'sdas'], # noqa E501
+                                                                ['wosd', 'sdas'], # noqa E501
                                                                 ['k', 's', 'd']) # noqa E501
         self.assertEqual(len(words), 1)
-        self.assertEqual(words[0], 'wdor')
+        self.assertEqual(words[0], 'wosd')
 
     def test_get_array_of_words_with_replaced_symbol_true_parameters(self):
         checker = self.checker
         words = checker.get_array_of_words_with_replaced_symbol('word',
-                                                                ['wdor', 'sdas'], # noqa E501
+                                                                ['wosd', 'sdas'], # noqa E501
                                                                 ['k', 's', 'd']) # noqa E501
         self.assertEqual(len(words), 1)
-        self.assertEqual(words[0], 'wdor')
+        self.assertEqual(words[0], 'wosd')
 
     def test_get_array_of_words_with_replaced_symbol_empty_word_list(self):
         checker = self.checker
@@ -469,16 +469,15 @@ class TestWordCheckPositive(unittest.TestCase):
             return word in lst
 
         mocked_finder.word_exists.side_effect = test_word_exists
-        mocked_finder.get_list_of_words.return_value = []
         mocked_finder.get_array_of_words_with_extra_symbol.return_value = [
             'word/',
             'word:',
             'word,'
         ]
         mocked_finder.get_array_of_words_with_deleted_symbol.return_value = [
-            'wor',
-            'wod',
-            'wrd'
+            'word',
+            'word',
+            'word'
         ]
         mocked_finder.get_array_of_words_with_replaced_symbol.return_value = [  # noqa E501
             'dwor',

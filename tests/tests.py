@@ -149,12 +149,11 @@ class TestWordsParserPositive(unittest.TestCase):
         words = words_and_symbols['words']
         symbols = words_and_symbols['symbols']
 
-        text = '# just life'
+        text = '# just life\n'
         true_words = text.split(' ')
         true_symbols = []
         for word in true_words:
-            for s in word.split():
-                true_symbols.append(s)
+            true_symbols.append(list(word))
 
         for word in true_words:
             self.assertIn(word, words.keys())
@@ -221,18 +220,18 @@ class TestWordsParserPositive(unittest.TestCase):
         writed_words = read_data("test_words.txt")
         writed_symbols = read_data("test_symbols.txt")
 
-        self.assertEqual(writed_words[0], '# - 1')
-        self.assertEqual(writed_words[1], 'just - 1')
-        self.assertEqual(writed_words[2], 'life - 1')
-        self.assertEqual(writed_symbols[0], '# - 1')
-        self.assertEqual(writed_symbols[1], 'j - 1')
-        self.assertEqual(writed_symbols[2], 'u - 1')
-        self.assertEqual(writed_symbols[3], 's - 1')
-        self.assertEqual(writed_symbols[4], 't - 1')
-        self.assertEqual(writed_symbols[5], 'l - 1')
-        self.assertEqual(writed_symbols[6], 'i - 1')
-        self.assertEqual(writed_symbols[7], 'f - 1')
-        self.assertEqual(writed_symbols[8], 'e - 1')
+        self.assertEqual(writed_words[0], '# - 1\n')
+        self.assertEqual(writed_words[1], 'just - 1\n')
+        self.assertEqual(writed_words[2], 'life - 1\n')
+        self.assertEqual(writed_symbols[0], '# - 1\n')
+        self.assertEqual(writed_symbols[1], 'j - 1\n')
+        self.assertEqual(writed_symbols[2], 'u - 1\n')
+        self.assertEqual(writed_symbols[3], 's - 1\n')
+        self.assertEqual(writed_symbols[4], 't - 1\n')
+        self.assertEqual(writed_symbols[5], 'l - 1\n')
+        self.assertEqual(writed_symbols[6], 'i - 1\n')
+        self.assertEqual(writed_symbols[7], 'f - 1\n')
+        self.assertEqual(writed_symbols[8], 'e - 1\n')
 
     @patch("words_parser.WordsParser")
     def test_parse_and_save_empty_repository(self, mock_parser):

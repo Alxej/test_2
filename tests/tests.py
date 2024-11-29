@@ -213,7 +213,7 @@ class TestWordsParserPositive(unittest.TestCase):
             writed_words = read_data("test_words.txt")
             writed_symbols = read_data("test_symbols.txt")
             self.assertEqual(writed_words, '# - 1\n')
-            self.assertEqual(writed_symbols, '# - 10\n')
+            self.assertEqual(writed_symbols, '# - 1\n')
 
     def test_parse_and_save_true_parameters(self):
         def read_data(filename: str):

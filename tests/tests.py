@@ -138,7 +138,7 @@ class TestWordsParserPositive(unittest.TestCase):
                 self.assertEqual(words['just'], 2)
 
                 self.assertEqual(len(list(symbols.keys())), 4)
-                true_symbols = 'just'.split()
+                true_symbols = list('just')
                 for s in true_symbols:
                     self.assertIn(s, list(symbols.keys()))
                     self.assertEqual(symbols[s], 2)
@@ -212,8 +212,8 @@ class TestWordsParserPositive(unittest.TestCase):
             parser.parse_and_save("ss", "ss")
             writed_words = read_data("test_words.txt")
             writed_symbols = read_data("test_symbols.txt")
-            self.assertEqual(writed_words, '# - 10')
-            self.assertEqual(writed_symbols, '# - 10')
+            self.assertEqual(writed_words, '# - 10\n')
+            self.assertEqual(writed_symbols, '# - 10\n')
 
     def test_parse_and_save_true_parameters(self):
         def read_data(filename: str):
@@ -243,10 +243,10 @@ class TestWordsParserPositive(unittest.TestCase):
         self.assertEqual(writed_symbols[7], 'i - 1\n')
         self.assertEqual(writed_symbols[8], 'f - 1\n')
         self.assertEqual(writed_symbols[9], 'e - 1\n')
-        self.assertEqual(writed_symbols[10], '\n - 1\n')
+        self.assertEqual(writed_symbols[10], '\n')
         self.assertEqual(writed_symbols[11], ' - 1\n')
 
-    def test_parse_and_save_empty_repository(self, mock_parser):
+    def test_parse_and_save_empty_repository(self):
         def read_data(filename: str):
             with open(filename, 'r', encoding="utf-8") as f:
                 return f.readline()

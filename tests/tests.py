@@ -469,22 +469,22 @@ class TestWordCheckPositive(unittest.TestCase):
             return word in lst
 
         mocked_finder.word_exists.side_effect = test_word_exists
-        mocked_finder().get_list_of_words.return_value = []
-        mocked_finder().get_array_of_words_with_extra_symbol.return_value = [
+        mocked_finder.get_list_of_words.return_value = []
+        mocked_finder.get_array_of_words_with_extra_symbol.return_value = [
             'word/',
             'word:',
             'word,'
         ]
-        mocked_finder().get_array_of_words_with_deleted_symbol.return_value = [
+        mocked_finder.get_array_of_words_with_deleted_symbol.return_value = [
             'wor',
             'wod',
             'wrd'
         ]
-        mocked_finder().get_array_of_words_with_replaced_symbol.return_value = [  # noqa E501
+        mocked_finder.get_array_of_words_with_replaced_symbol.return_value = [  # noqa E501
             'dwor',
             'wdor'
         ]
-        mocked_finder().get_array_of_words_with_swapped_symbols.return_value = [  # noqa E501
+        mocked_finder.get_array_of_words_with_swapped_symbols.return_value = [  # noqa E501
             'dorw'
         ]
 
@@ -516,7 +516,7 @@ class TestWordCheckPositive(unittest.TestCase):
 
     def test_get_similar_words_word_in_list(self):
         checker = self.checker
-        words = checker.get_similar_words('life\n')
+        words = checker.get_similar_words('life')
         self.assertIsNone(words)
 
     def test_get_similar_words_empty_words_list(self):

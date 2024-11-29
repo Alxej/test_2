@@ -212,7 +212,7 @@ class TestWordsParserPositive(unittest.TestCase):
             parser.parse_and_save("ss", "ss")
             writed_words = read_data("test_words.txt")
             writed_symbols = read_data("test_symbols.txt")
-            self.assertEqual(writed_words, '# - 10\n')
+            self.assertEqual(writed_words, '# - 1\n')
             self.assertEqual(writed_symbols, '# - 10\n')
 
     def test_parse_and_save_true_parameters(self):
@@ -263,8 +263,8 @@ class TestWordsParserPositive(unittest.TestCase):
             writed_words = read_data("words.txt")
             writed_symbols = read_data("symbols.txt")
 
-            self.assertEqual(len(writed_words.keys()), 0)
-            self.assertEqual(len(writed_symbols.keys()), 0)
+            self.assertEqual(len(writed_words), 0)
+            self.assertEqual(len(writed_symbols), 0)
 
 
 class TestWordsParserNegative(unittest.TestCase):

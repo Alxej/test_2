@@ -5,7 +5,10 @@ class WordsParser:
 
     def get_names(self, url):
         http = urllib3.PoolManager()
-        response = http.request('GET', url)
+        try:
+            response = http.request('GET', url)
+        except Exception:
+            raise ValueError
         if response.status != 200:
             raise ValueError
         data = response.data.decode('utf-8')
@@ -24,7 +27,10 @@ class WordsParser:
     def get_text(self, filename, url):
         new_url = url + '/' + filename
         http = urllib3.PoolManager()
-        response = http.request('GET', new_url)
+        try:
+            response = http.request('GET', new_url)
+        except Exception:
+            raise ValueError
         if response.status != 200:
             raise ValueError
         data = response.data.decode('utf-8')

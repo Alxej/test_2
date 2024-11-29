@@ -574,10 +574,10 @@ class TestWordCheckNegative(unittest.TestCase):
 
     def test_get_similar_words_no_file(self):
         checker = self.checker
-        with self.assertRaises(ValueError):
+        with self.assertRaises(FileExistsError):
             checker.get_similar_words("word", 'sadsad', 'symbols.txt')
 
-        with self.assertRaises(ValueError):
+        with self.assertRaises(FileExistsError):
             checker.get_similar_words("word", 'words.txt', 'sadsad')
 
 

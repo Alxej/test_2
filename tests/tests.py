@@ -375,18 +375,18 @@ class TestWordCheckPositive(unittest.TestCase):
                                      "words.txt",
                                      'symbols.txt')
         words = checker.get_array_of_words_with_replaced_symbol('word',
-                                                                ['dwor', 'sdas'], # noqa E501
+                                                                ['wdor', 'sdas'], # noqa E501
                                                                 ['k', 's', 'd']) # noqa E501
         self.assertEqual(len(words), 1)
-        self.assertEqual(words[0], 'dwor')
+        self.assertEqual(words[0], 'wdor')
 
     def test_get_array_of_words_with_replaced_symbol_true_parameters(self):
         checker = self.checker
         words = checker.get_array_of_words_with_replaced_symbol('word',
-                                                                ['dwor', 'sdas'], # noqa E501
+                                                                ['wdor', 'sdas'], # noqa E501
                                                                 ['k', 's', 'd']) # noqa E501
         self.assertEqual(len(words), 1)
-        self.assertEqual(words[0], 'dwor')
+        self.assertEqual(words[0], 'wdor')
 
     def test_get_array_of_words_with_replaced_symbol_empty_word_list(self):
         checker = self.checker
@@ -447,14 +447,14 @@ class TestWordCheckPositive(unittest.TestCase):
         words = checker.get_array_of_words_with_swapped_symbols('word',
                                                                 ['wrod', 'sd'])
         self.assertEqual(len(words), 1)
-        self.assertEqual(words[0], 'word')
+        self.assertEqual(words[0], 'wrod')
 
     def test_get_array_of_words_with_swapped_symbols_true_parameters(self):
         checker = self.checker
         words = checker.get_array_of_words_with_swapped_symbols('word',
                                                                 ['wrod', 'sd'])
         self.assertEqual(len(words), 1)
-        self.assertEqual(words[0], 'word')
+        self.assertEqual(words[0], 'wrod')
 
     def test_get_array_of_words_with_swapped_symbols_empty_words_list(self):
         checker = self.checker
@@ -512,7 +512,7 @@ class TestWordCheckPositive(unittest.TestCase):
     def test_get_similar_words_true_parameters(self):
         checker = self.checker
         words = checker.get_similar_words('live')
-        self.assertEqual(words, ['live'])
+        self.assertEqual(words, ['life'])
 
     def test_get_similar_words_word_in_list(self):
         checker = self.checker

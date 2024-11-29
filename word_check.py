@@ -61,7 +61,6 @@ class SimilarWordsFinder:
         for symbol in symbols:
             for position in range(0, len(word)):
                 new_word = word[:position] + symbol + word[position + 1:]
-                print(new_word)
                 if self.word_exists(new_word, list_of_words):
                     lst.append(new_word.lower())
         return lst

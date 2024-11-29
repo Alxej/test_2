@@ -228,7 +228,6 @@ class TestWordsParserPositive(unittest.TestCase):
                               "test_symbols.txt")
         writed_words = read_data("test_words.txt")
         writed_symbols = read_data("test_symbols.txt")
-        print(writed_symbols)
 
         self.assertEqual(writed_words[0], '# - 1\n')
         self.assertEqual(writed_words[1], 'just - 1\n')

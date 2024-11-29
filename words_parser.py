@@ -21,7 +21,6 @@ class WordsParser:
                 ind = string.rfind(":")
                 if ".txt" in string:
                     new_strings.append(string[ind + 2:len(string) - 1])
-        print(new_strings)
         return new_strings
 
     def get_text(self, filename, url):

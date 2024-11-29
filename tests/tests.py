@@ -126,7 +126,7 @@ class TestWordsParserPositive(unittest.TestCase):
                           return_value=['C.txt', 's.txt']):
             with patch.object(WordsParser,
                               'get_text',
-                              return_value=['just']):
+                              return_value='just'):
 
                 parser = WordsParser()
                 words_and_symbols = parser.get_unique_words_and_symbols("", "")
@@ -202,16 +202,18 @@ class TestWordsParserPositive(unittest.TestCase):
                 return f.readline()
 
         mock_parser.save_words_and_symbols.side_effect = test_save_data
-        mock_parser.get_unique_words_and_symbols.return_value = {
-            'words': {'#': 10},
-            'symbols': {'#': 10}
-        }
-        parser = WordsParser()
-        parser.parse_and_save("ss", "ss")
-        writed_words = read_data("test_words.txt")
-        writed_symbols = read_data("test_symbols.txt")
-        self.assertEqual(writed_words, '# - 10')
-        self.assertEqual(writed_symbols, '# - 10')
+        with patch.object(WordsParser,
+                          'get_unique_words_and_symbols',
+                          return_value={
+                                'words': {'#': 10},
+                                'symbols': {'#': 10}
+                            }):
+            parser = WordsParser()
+            parser.parse_and_save("ss", "ss")
+            writed_words = read_data("test_words.txt")
+            writed_symbols = read_data("test_symbols.txt")
+            self.assertEqual(writed_words, '# - 10')
+            self.assertEqual(writed_symbols, '# - 10')
 
     def test_parse_and_save_true_parameters(self):
         def read_data(filename: str):
@@ -244,24 +246,25 @@ class TestWordsParserPositive(unittest.TestCase):
         self.assertEqual(writed_symbols[10], '\n - 1\n')
         self.assertEqual(writed_symbols[11], ' - 1\n')
 
-    @patch("words_parser.WordsParser")
     def test_parse_and_save_empty_repository(self, mock_parser):
         def read_data(filename: str):
             with open(filename, 'r', encoding="utf-8") as f:
                 return f.readline()
 
-        mock_parser.get_unique_words_and_symbols.return_value = {
-            'words': {},
-            'symbols': {}
-        }
+        with patch.object(WordsParser,
+                          'get_unique_words_and_symbols',
+                          return_value={
+                              'words': {},
+                              'symbols': {}
+                          }):
 
-        parser = WordsParser()
-        parser.parse_and_save("ss", "ss")
-        writed_words = read_data("words.txt")
-        writed_symbols = read_data("symbols.txt")
+            parser = WordsParser()
+            parser.parse_and_save("ss", "ss")
+            writed_words = read_data("words.txt")
+            writed_symbols = read_data("symbols.txt")
 
-        self.assertEqual(len(writed_words.keys()), 0)
-        self.assertEqual(len(writed_symbols.keys()), 0)
+            self.assertEqual(len(writed_words.keys()), 0)
+            self.assertEqual(len(writed_symbols.keys()), 0)
 
 
 class TestWordsParserNegative(unittest.TestCase):

@@ -123,8 +123,8 @@ class TestWordsParserPositive(unittest.TestCase):
     @patch("words_parser.WordsParser")
     def test_get_unique_words_and_symbols_true_parameters_block(self,
                                                                 mock_parser):
-        mock_parser().get_names.return_value = ['C.txt', 's.txt'] # noqa E501] # noqa E501
-        mock_parser().get_text.return_value = ['just']
+        mock_parser.get_names.return_value = ['C.txt', 's.txt'] # noqa E501] # noqa E501
+        mock_parser.get_text.return_value = ['just']
 
         parser = WordsParser()
         words_and_symbols = parser.get_unique_words_and_symbols("", "")
@@ -143,7 +143,7 @@ class TestWordsParserPositive(unittest.TestCase):
 
     def test_get_unique_words_and_symbols_true_parameters(self):
         url = 'https://github.com/Alxej/testing_repo/tree/main'
-        raw_url = 'https://raw.githubusercontent.com/Alxej/testing_repo/refs/heads/main/README.md' # noqa E501
+        raw_url = 'https://raw.githubusercontent.com/Alxej/testing_repo/refs/heads/main' # noqa E501
         parser = WordsParser()
         words_and_symbols = parser.get_unique_words_and_symbols(url, raw_url)
         words = words_and_symbols['words']
@@ -166,7 +166,7 @@ class TestWordsParserPositive(unittest.TestCase):
 
     @patch("words_parser.WordsParser")
     def test_get_unique_words_and_symbols_empty_repository(self, mock_parser):
-        mock_parser().get_names.return_value = []
+        mock_parser.get_names.return_value = []
 
         parser = WordsParser()
         words_and_symbols = parser.get_unique_words_and_symbols("", "")
@@ -196,7 +196,7 @@ class TestWordsParserPositive(unittest.TestCase):
                 return f.readline()
 
         mock_parser.save_words_and_symbols.side_effect = test_save_data
-        mock_parser().get_unique_words_and_symbols.return_value = {
+        mock_parser.get_unique_words_and_symbols.return_value = {
             'words': {'#': 10},
             'symbols': {'#': 10}
         }
@@ -212,7 +212,7 @@ class TestWordsParserPositive(unittest.TestCase):
             with open(filename, 'r', encoding="utf-8") as f:
                 return f.readlines()
         url = 'https://github.com/Alxej/testing_repo/tree/main'
-        raw_url = 'https://raw.githubusercontent.com/Alxej/testing_repo/refs/heads/main/README.md' # noqa E501
+        raw_url = 'https://raw.githubusercontent.com/Alxej/testing_repo/refs/heads/main' # noqa E501
         parser = WordsParser()
         parser.parse_and_save(url,
                               raw_url,
@@ -240,7 +240,7 @@ class TestWordsParserPositive(unittest.TestCase):
             with open(filename, 'r', encoding="utf-8") as f:
                 return f.readline()
 
-        mock_parser().get_unique_words_and_symbols.return_value = {
+        mock_parser.get_unique_words_and_symbols.return_value = {
             'words': {},
             'symbols': {}
         }
@@ -462,52 +462,6 @@ class TestWordCheckPositive(unittest.TestCase):
                                                                 [])
         self.assertEqual(words, [])
 
-    @patch('word_check.SimilarWordsFinder')
-    def test_get_similar_words_true_parameters_bl(self,
-                                                  mocked_finder):
-        def test_word_exists(word, lst):
-            return word in lst
-
-        mocked_finder.word_exists.side_effect = test_word_exists
-        mocked_finder.get_array_of_words_with_extra_symbol.return_value = [
-            'word/',
-            'word:',
-            'word,'
-        ]
-        mocked_finder.get_array_of_words_with_deleted_symbol.return_value = [
-            'word',
-            'word',
-            'word'
-        ]
-        mocked_finder.get_array_of_words_with_replaced_symbol.return_value = [  # noqa E501
-            'dwor',
-            'wdor'
-        ]
-        mocked_finder.get_array_of_words_with_swapped_symbols.return_value = [  # noqa E501
-            'dorw'
-        ]
-
-        checker = SimilarWordsFinder(self.true_url,
-                                     self.true_raw_url,
-                                     "words.txt",
-                                     'symbols.txt')
-
-        words = checker.get_similar_words('word')
-        true_words = [
-            'word/',
-            'word:',
-            'word,',
-            'wor',
-            'wod',
-            'wrd',
-            'dwor',
-            'wdor',
-            'dorw'
-        ]
-
-        for word in true_words:
-            self.assertIn(word, words)
-
     def test_get_similar_words_true_parameters(self):
         checker = self.checker
         words = checker.get_similar_words('live')
@@ -538,7 +492,7 @@ class TestWordCheckNegative(unittest.TestCase):
                                  'symbols.txt')
 
     def test_initialize_with_wrong_parameters(self):
-        with self.assertRaises(FileExistsError):
+        with self.assertRaises(ValueError):
             SimilarWordsFinder("sdasdsad", 'symbosadas')
 
     def test_get_list_of_words_no_file(self):

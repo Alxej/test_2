@@ -15,7 +15,7 @@ class TestWordsParserPositive(unittest.TestCase):
                       'FathersAndSons.txt', 'FathersAndSons_JOF.txt',
                       'MasterAndMargarita.txt', 'MasterAndMargarita_JOF.txt',
                       'WarAndPeace.txt', 'WarAndPeace_JOF.txt']
-        parsed_names = WordsParser.get_names(self.true_url)
+        parsed_names = WordsParser().get_names(self.true_url)
         for name in parsed_names:
             self.assertIn(name, true_names)
 
@@ -149,7 +149,7 @@ class TestWordsParserPositive(unittest.TestCase):
         words = words_and_symbols['words']
         symbols = words_and_symbols['symbols']
 
-        text = '# just life\n'
+        text = '# just life '
         true_words = text.split(' ')
         true_symbols = []
         for word in true_words:
@@ -168,7 +168,8 @@ class TestWordsParserPositive(unittest.TestCase):
         mock_parser.get_names.return_value = []
 
         parser = WordsParser()
-        words_and_symbols = parser.get_unique_words_and_symbols("", "")
+        words_and_symbols = parser.get_unique_words_and_symbols(self.true_url,
+                                                                self.true_raw_url) # noqa E501
         words = words_and_symbols['words']
         symbols = words_and_symbols['symbols']
 
@@ -219,6 +220,7 @@ class TestWordsParserPositive(unittest.TestCase):
                               "test_symbols.txt")
         writed_words = read_data("test_words.txt")
         writed_symbols = read_data("test_symbols.txt")
+        print(writed_symbols)
 
         self.assertEqual(writed_words[0], '# - 1\n')
         self.assertEqual(writed_words[1], 'just - 1\n')

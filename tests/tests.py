@@ -120,26 +120,28 @@ class TestWordsParserPositive(unittest.TestCase):
         self.assertEqual(writed_words, 'awda - 10\n')
         self.assertEqual(writed_symbols, 'a - 5\n')
 
-    @patch("words_parser.WordsParser")
-    def test_get_unique_words_and_symbols_true_parameters_block(self,
-                                                                mock_parser):
-        mock_parser.get_names.return_value = ['C.txt', 's.txt'] # noqa E501] # noqa E501
-        mock_parser.get_text.return_value = ['just']
+    def test_get_unique_words_and_symbols_true_parameters_block(self):
+        with patch.object(WordsParser,
+                          'get_names',
+                          return_value=['C.txt', 's.txt']):
+            with patch.object(WordsParser,
+                              'get_text',
+                              return_value=['just']):
 
-        parser = WordsParser()
-        words_and_symbols = parser.get_unique_words_and_symbols("", "")
-        words = words_and_symbols['words']
-        symbols = words_and_symbols['symbols']
+                parser = WordsParser()
+                words_and_symbols = parser.get_unique_words_and_symbols("", "")
+                words = words_and_symbols['words']
+                symbols = words_and_symbols['symbols']
 
-        self.assertEqual(len(list(words.keys())), 1)
-        self.assertIn('just', list(words.keys()))
-        self.assertEqual(words['just'], 2)
+                self.assertEqual(len(list(words.keys())), 1)
+                self.assertIn('just', list(words.keys()))
+                self.assertEqual(words['just'], 2)
 
-        self.assertEqual(len(list(symbols.keys())), 4)
-        true_symbols = 'just'.split()
-        for s in true_symbols:
-            self.assertIn(s, list(symbols.keys()))
-            self.assertEqual(symbols[s], 2)
+                self.assertEqual(len(list(symbols.keys())), 4)
+                true_symbols = 'just'.split()
+                for s in true_symbols:
+                    self.assertIn(s, list(symbols.keys()))
+                    self.assertEqual(symbols[s], 2)
 
     def test_get_unique_words_and_symbols_true_parameters(self):
         url = 'https://github.com/Alxej/testing_repo/tree/main'
@@ -153,23 +155,27 @@ class TestWordsParserPositive(unittest.TestCase):
         true_words = text.split(' ')
         true_symbols = []
         for word in true_words:
-            true_symbols.append(list(word))
+            s = list(word)
+            for ss in s:
+                true_symbols.append(ss)
 
         for word in true_words:
-            self.assertIn(word, words.keys())
+            self.assertIn(word, list(words.keys()))
             self.assertEqual(words[word], 1)
 
         for sym in true_symbols:
-            self.assertIn(sym, symbols.keys())
+            self.assertIn(sym, list(symbols.keys()))
             self.assertEqual(symbols[sym], 1)
 
     @patch("words_parser.WordsParser")
     def test_get_unique_words_and_symbols_empty_repository(self, mock_parser):
+        true_url = 'https://github.com/Alxej/t'
+        raw_url = 'https://raw.githubusercontent.com/Alxej/t/refs/heads/main/'
         mock_parser.get_names.return_value = []
 
         parser = WordsParser()
-        words_and_symbols = parser.get_unique_words_and_symbols(self.true_url,
-                                                                self.true_raw_url) # noqa E501
+        words_and_symbols = parser.get_unique_words_and_symbols(true_url,
+                                                                raw_url) # noqa E501
         words = words_and_symbols['words']
         symbols = words_and_symbols['symbols']
 
@@ -226,14 +232,17 @@ class TestWordsParserPositive(unittest.TestCase):
         self.assertEqual(writed_words[1], 'just - 1\n')
         self.assertEqual(writed_words[2], 'life - 1\n')
         self.assertEqual(writed_symbols[0], '# - 1\n')
-        self.assertEqual(writed_symbols[1], 'j - 1\n')
-        self.assertEqual(writed_symbols[2], 'u - 1\n')
-        self.assertEqual(writed_symbols[3], 's - 1\n')
-        self.assertEqual(writed_symbols[4], 't - 1\n')
-        self.assertEqual(writed_symbols[5], 'l - 1\n')
-        self.assertEqual(writed_symbols[6], 'i - 1\n')
-        self.assertEqual(writed_symbols[7], 'f - 1\n')
-        self.assertEqual(writed_symbols[8], 'e - 1\n')
+        self.assertEqual(writed_symbols[1], '  - 2\n')
+        self.assertEqual(writed_symbols[2], 'j - 1\n')
+        self.assertEqual(writed_symbols[3], 'u - 1\n')
+        self.assertEqual(writed_symbols[4], 's - 1\n')
+        self.assertEqual(writed_symbols[5], 't - 1\n')
+        self.assertEqual(writed_symbols[6], 'l - 1\n')
+        self.assertEqual(writed_symbols[7], 'i - 1\n')
+        self.assertEqual(writed_symbols[8], 'f - 1\n')
+        self.assertEqual(writed_symbols[9], 'e - 1\n')
+        self.assertEqual(writed_symbols[10], '\n - 1\n')
+        self.assertEqual(writed_symbols[11], ' - 1\n')
 
     @patch("words_parser.WordsParser")
     def test_parse_and_save_empty_repository(self, mock_parser):

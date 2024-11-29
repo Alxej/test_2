@@ -20,7 +20,7 @@ class TestWordsParserPositive(unittest.TestCase):
             self.assertIn(name, true_names)
 
     def test_get_text_true_url(self):
-        true_text = 'Лабораторная работа номер 1...'
+        true_text = 'Лабораторная работа номер 1...\n'
         raw_url = 'https://raw.githubusercontent.com/Alxej/testing/refs/heads/main' # noqa E501
         filename = 'README.md'
         parser = WordsParser()
@@ -40,7 +40,7 @@ class TestWordsParserPositive(unittest.TestCase):
 
         writed = read_data(filename)
 
-        self.assertEqual(writed, 'data - 1')
+        self.assertEqual(writed, 'data - 1\n')
 
     def test_write_file_empty_data(self):
         def read_data(filename: str):
@@ -54,7 +54,7 @@ class TestWordsParserPositive(unittest.TestCase):
 
         writed = read_data(filename)
 
-        self.assertEqual(writed, 'data - 1')
+        self.assertEqual(writed, 'data - 1\n')
 
     def test_write_file_remove_n_false(self):
         def read_data(filename: str):
@@ -68,7 +68,7 @@ class TestWordsParserPositive(unittest.TestCase):
 
         writed = read_data(filename)
 
-        self.assertEqual(writed, 'data\n - 1')
+        self.assertEqual(writed, 'data\n - 1\n')
 
     @patch("words_parser.WordsParser")
     def test_save_words_and_symbols_true_parameters_block(self,
@@ -96,8 +96,8 @@ class TestWordsParserPositive(unittest.TestCase):
         writed_words = read_data(words_filename)
         writed_symbols = read_data(symbols_filename)
 
-        self.assertEqual(writed_words, 'awda - 10')
-        self.assertEqual(writed_symbols, 'a - 5')
+        self.assertEqual(writed_words, 'awda - 10\n')
+        self.assertEqual(writed_symbols, 'a - 5\n')
 
     def test_save_words_and_symbols_true_parameters(self):
 
@@ -117,8 +117,8 @@ class TestWordsParserPositive(unittest.TestCase):
         writed_words = read_data(words_filename)
         writed_symbols = read_data(symbols_filename)
 
-        self.assertEqual(writed_words, 'awda - 10')
-        self.assertEqual(writed_symbols, 'a - 5')
+        self.assertEqual(writed_words, 'awda - 10\n')
+        self.assertEqual(writed_symbols, 'a - 5\n')
 
     @patch("words_parser.WordsParser")
     def test_get_unique_words_and_symbols_true_parameters_block(self,
@@ -282,7 +282,7 @@ class TestWordsParserNegative(unittest.TestCase):
 
 class TestWordCheckPositive(unittest.TestCase):
     true_url = 'https://github.com/Alxej/testing_repo/tree/main' # noqa E501
-    true_raw_url = 'https://raw.githubusercontent.com/Alxej/testing_repo/refs/heads/main/README.md' # noqa E501
+    true_raw_url = 'https://raw.githubusercontent.com/Alxej/testing_repo/refs/heads/main' # noqa E501
     checker = SimilarWordsFinder(true_url,
                                  true_raw_url,
                                  "words.txt",

@@ -50,6 +50,8 @@ class WordsParser:
                                dict_of_unique_words,
                                symbols_filename="symbols.txt",
                                words_filename="words.txt"):
+        if len(symbols_filename.split('.')) == 1 or len(words_filename.split('.')) == 1: # noqa E501
+            raise ValueError('Wrong filename')
         self.write_file(symbols_filename,
                         dict_of_unique_symbols,
                         False)

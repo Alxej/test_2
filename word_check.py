@@ -18,11 +18,11 @@ class SimilarWordsFinder:
                                   words_path,
                                   symbol_path)
         if repo_url is None and (not os.path.exists(words_path) or not os.path.exists(symbol_path)): # noqa E501
-            raise ValueError("No needed words or symbol file")
+            raise FileExistsError("No needed words or symbol file")
         self.words_filename = words_path
         self.symbols_filename = symbol_path
 
-    def get_list_of_words(self, filename):
+    def get_list_of_words(self, filename=words_filename):
         if not os.path.exists(filename):
             raise FileExistsError("Symbols file not exists")
         with open(filename, encoding="utf-8") as opened:
@@ -34,7 +34,7 @@ class SimilarWordsFinder:
             lst.sort()
             return lst
 
-    def word_exists(self, word, lst):
+    def word_exists(self, word, lst: list):
         return word.lower() in lst
 
     def get_array_of_words_with_extra_symbol(self,
@@ -104,7 +104,7 @@ class SimilarWordsFinder:
         result = {}
         list_of_words = self.get_list_of_words(words_filename)
         list_of_symbols = self.get_list_of_words(symbols_filename)
-        if not self.word_exists(new_word, list_of_words):
+        if self.word_exists(new_word, list_of_words):
             return None
         list1 = self.get_array_of_words_with_extra_symbol(new_word,
                                                           list_of_words,
